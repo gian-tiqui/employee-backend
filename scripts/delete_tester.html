@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Employee</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+  <h2>Delete Employee</h2>
+  <form id="deleteEmployeeForm">
+    <label for="eid">Employee ID:</label>
+    <input type="text" id="eid" name="eid" required><br>
+
+    <input type="submit" value="Delete Employee">
+  </form>
+
+  <script>
+    $(document).ready(function () {
+      $("#deleteEmployeeForm").submit(function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        // Collect form data into a JavaScript object
+        var formData = {
+          eid: $("#eid").val()
+        };
+
+        // Make an AJAX POST request to delete_employee.php
+        $.ajax({
+          type: "POST",
+          url: "http://www.employeedata.com/scripts/controllers/employees/delete_employee.php",
+          data: formData,
+          success: function (response) {
+            // Handle the response from the server
+            console.log(response);
+
+            // You can handle the response as needed, e.g., show a success message to the user
+            alert("Employee deleted successfully");
+          },
+          error: function (error) {
+            // Handle errors
+            console.error(error);
+
+            // You can show an error message to the user
+            alert("Error deleting employee");
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
